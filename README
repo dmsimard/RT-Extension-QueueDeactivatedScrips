@@ -2,19 +2,21 @@ NAME
   RT::Extension::QueueDeactivatedScrips
 
 DESCRIPTION
+  This is a fork of RT::Extension::QueueDeactivatedScrips by Torsten
+  Brumm, the original github repository is available here:
+  https://github.com/tbrumm/RT-Extension-QueueDeactivatedScrips
+
+  The forked version, making it compatible with RT 4.0.4 is here:
+  https://github.com/dmsimard/RT-Extension-QueueDeactivatedScrips  
+
   If you have a large amount of Queues and you don't like to manage
   all scrips per queue by hand, this extension offers a way to
   create global scrips and enable and disable them on a queue level.
-  This Extension is based on Dirk Pape's HideGlobalScrip AddOn and
-  pushed to RT 3.8.x.
 
-  We had to replace the Admin/Queues/Scrips.html file with a pathed
-  Version. If you have already made changes to the file, please
-  compare and patch again.
-
-  We also had to patch Admin/Elements/EditScrips. Inside RT 3.8.x
-  this file is completely different from older versions, so we
-  replaced the entire content. 
+  Extended files include:
+  - html/Admin/Queues/Scrips.html
+  - html/Admin/Elements/EditScrips
+  - lib/RT/Scrip.pm
 
 INSTALLATION
   1. Run "perl Makefile.PL"
@@ -25,23 +27,41 @@ INSTALLATION
   
   4. Run "make initdb" for first time installation
 
-  5. Additionally, if you're running 3.8, you'll need to add
-     "RT::Extension::QueueDeactivatedScrips" to @Plugins in
+  5. Add "RT::Extension::QueueDeactivatedScrips" to @Plugins in
      etc/RT_SiteConfig.pm.  For example:
      Set(@Plugins, qw(RT::Extension::QueueDeactivatedScrips));
 
   6. Clear RT's mason cache and restart the web server to make sure the
      extension is incorporated.
+
+TROUBLESHOOTING
+  * The activation toggle configuration appears in both Global and Queue
+  scrip configuration but it doesn't seem to do anything.
+
+    Enable debug logging in your RT_SiteConfig.pm, restart your webserver
+    and do an action that would trigger a global scrip.
+    Look through your debug logs and try to find something like the
+    following:
+      Scrip XX has been applied, since it is not deactivated for Queue YYY
+      Scrip XX has NOT been applied, since it is deactivated for Queue YYY
+
+    If you don't see something like this at all, try copying
+    local/plugins/RT-Extension-QueueDeactivatedScrips/lib/RT/Scrip.pm to
+    local/lib/RT/Scrip.pm
+
+    and try again.
    
 LICENSE
   Under the same terms as perl itself.
 
 AUTHOR
   Torsten Brumm <tbrumm@mac.com>
+  Updated for 4.0.4 by David Moreau Simard <moi@dmsimard.com>
 
 THANKS
   Dirk Pape (who wrote the original AddOn for RT 3.x Series)
   Dan O'Neill (who wrote the PG and Oracle Schemes)
+  Givano [Ivan] (for providing insight into patch opportunities)
 
 TODO
   EditScrips inside RT 3.8.x works different like older versions,

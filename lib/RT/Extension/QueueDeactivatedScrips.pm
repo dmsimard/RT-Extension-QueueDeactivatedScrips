@@ -3,7 +3,7 @@ package RT::Extension::QueueDeactivatedScrips;
 use 5.008003;
 use warnings;
 use strict;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 1;
 
@@ -34,12 +34,16 @@ Installation Instructions for RT-Extension-QueueDeactivatedScrips:
 	4. make initdb
 	5. Add 'RT::Extension::QueueDeactivatedScrips' to 
 		@Plugins in RT_SiteConfig.pm
-	6. Clear mason cache: rm -rf /opt/rt3/var/mason_data/obj
+	6. Clear mason cache: rm -rf /opt/rt4/var/mason_data/obj
 	7. Restart webserver
 
 =head1 AUTHOR
 
 Torsten Brumm <tbrumm@mac.com>
+
+=head1 UPDATED BY
+
+David Moreau Simard <moi@dmsimard.com>
 
 =head1 COPYRIGHT AND LICENCE
  
